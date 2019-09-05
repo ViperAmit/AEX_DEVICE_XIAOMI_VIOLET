@@ -16,7 +16,7 @@ $(call inherit-product, device/xiaomi/violet/device.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
 TARGET_INCLUDE_STOCK_ARCORE := true
-$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
+$(call inherit-product, vendor/aosp/common.mk)
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := aosp_violet
@@ -33,3 +33,12 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     TARGET_DEVICE="violet"
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+# Set this flag in build script
+ifeq ($(CURRENT_BUILD_TYPE), gapps)
+# Use Gapps
+TARGET_SHIPS_SEPERATE_GAPPS_BUILD := true
+WITH_GAPPS := true
+TARGET_GAPPS_ARCH := arm64
+IS_PHONE := true
+endif
